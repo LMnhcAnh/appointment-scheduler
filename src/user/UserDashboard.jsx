@@ -28,8 +28,8 @@ const appointments = [
   },
   {
     id: 4,
-    avatar: "/image/img_gbao_4.png",
-    name: "Name - Jobs",
+    avatar: "/image/DucAnh.png",
+    name: "Tôm - Ăn Hại",
     status: "Denied"
   }
 ];

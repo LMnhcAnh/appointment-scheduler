@@ -27,7 +27,7 @@ const ClientHomepage = () => {
     <div className="main-homepage">
       {/* Header */}
       <div className="logo-box">
-        <div className="logo-left" style={{ cursor: "pointer" }} onClick={() => navigate("/client/dashboard")}>
+        <div className="logo-left" style={{ cursor: "pointer" }} onClick={() => navigate("/client/homepage")}>
           <img src="/image/img_logo.svg" alt="Logo" width={40} />
           <span className="navbar-title">Appointment Scheduler</span>
         </div>

@@ -1,24 +1,22 @@
 import React, { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
-  FaChevronDown, FaChevronUp, FaCalendarAlt, FaChartBar, FaBell,
-  FaUser, FaCog, FaSignOutAlt, FaList, FaHistory
+  FaChevronDown, FaChevronUp,
+  FaUser, FaUsers, FaPlusCircle,
+  FaCog, FaSignOutAlt
 } from "react-icons/fa";
-import "../user/UserMenu.css";
+import "../user/UserMenu.css"; // Reuse your dropdown styles
 
-const menuItems = [
-  { icon: FaChartBar, label: "Dashboard", route: "/client/dashboard" },
-  { icon: FaBell, label: "Notification", route: "/client/notifications" },
-  { icon: FaList, label: "List of user", route: "/client/users" },
-  { icon: FaHistory, label: "History", route: "/client/history" },
-  { icon: FaUser, label: "Profile", route: "/client/profile" },
-  { icon: FaCog, label: "Setting", route: "/client/settings" },
+const adminMenuItems = [
+  { icon: FaUser, label: "User", route: "/admin/user" },
+  { icon: FaUsers, label: "Client", route: "/admin/client" },
+  { icon: FaPlusCircle, label: "Add", route: "/admin/add-client" },
+  { icon: FaCog, label: "Setting", route: "/admin/settings" }
 ];
 
-const ClientMenu = () => {
+const AdminMenu = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation();
 
   const handleNavigate = (path) => {
     navigate(path);
@@ -34,7 +32,7 @@ const ClientMenu = () => {
       {open && (
         <div className="dropdown-panel-fixed">
           <ul>
-            {menuItems.map(({ icon: Icon, label, route }) => (
+            {adminMenuItems.map(({ icon: Icon, label, route }) => (
               <li key={label} onClick={() => handleNavigate(route)}>
                 <Icon style={{ fontSize: "1.4rem" }} /> {label}
               </li>
@@ -49,4 +47,4 @@ const ClientMenu = () => {
   );
 };
 
-export default ClientMenu;
+export default AdminMenu;

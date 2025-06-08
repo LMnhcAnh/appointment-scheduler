@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import Calendar from "react-calendar";
 import 'react-calendar/dist/Calendar.css';
 import '../homepage.css';
@@ -63,7 +63,9 @@ const ClientDetail = () => {
       {/* Top Bar */}
       <div className="logo-box">
         <div className="logo-left">
-          <img src="/image/img_logo.svg" alt="Logo" />
+          <Link to="/userhomepage" className="login-logo-link">
+            <img src="/image/img_logo.svg" alt="Logo" className="login-logo" />
+          </Link>
           <span className="navbar-title">Appointment Scheduler</span>
         </div>
         <UserMenu />

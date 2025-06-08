@@ -5,13 +5,16 @@ import App from "./App";
 import "./style.css";
 import { AppointmentProvider } from "./user/AppointmentContext";
 import { ClientAnalyticsProvider } from "./client/ClientAnalyticsContext";
+import { ClientStatusProvider } from "./context/ClientStatusContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <AppointmentProvider>
-      <ClientAnalyticsProvider> {/* ✅ context added */}
-        <App />
+      <ClientAnalyticsProvider>
+        <ClientStatusProvider>
+          <App />
+        </ClientStatusProvider>
       </ClientAnalyticsProvider>
     </AppointmentProvider>
   </BrowserRouter>
