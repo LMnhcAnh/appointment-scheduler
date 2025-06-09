@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import UserMenu from "./UserMenu";
 import "../homepage.css";
 import { Link } from "react-router-dom";
+import { FaUsers, FaCalendarCheck, FaHourglassHalf } from "react-icons/fa";
+
 
 // Mock appointments
 const appointments = [
@@ -31,6 +33,24 @@ const appointments = [
     avatar: "/image/DucAnh.png",
     name: "Tôm - Ăn Hại",
     status: "Denied"
+  },
+  {
+    id: 5,
+    avatar: "/image/DucAnh.png",
+    name: "Tôm - Ăn Hại",
+    status: "Denied"
+  },
+  {
+    id: 6,
+    avatar: "/image/DucAnh.png",
+    name: "Tôm - Ăn Hại",
+    status: "Denied"
+  },
+  {
+    id: 7,
+    avatar: "/image/DucAnh.png",
+    name: "Tôm - Ăn Hại",
+    status: "Denied"
   }
 ];
 
@@ -45,16 +65,34 @@ const Dashboard = () => {
     <div className="main-homepage">
       <div className="logo-box">
         <div className="logo-left">
-          <Link to="/" className="login-logo-link">
-                    <img src="/image/img_logo.svg" alt="Logo" className="login-logo" />
-                  </Link>
+          <Link to="/user/dashboard" className="login-logo-link">
+              <img src="/image/img_logo.svg" alt="Logo" className="login-logo" />
+            </Link>
           <span className="navbar-title">Appointment Scheduler</span>
         </div>
         <UserMenu />
       </div>
+<h2 style={{ textAlign: "left", marginBottom: "24px", marginLeft:"100px", size: "100px" }}>Dashboard</h2>
+      <div style={{ padding: "20px", maxWidth: "900px", margin: "0 auto", fontFamily: "monospace"}}>
+        
 
-      <div style={{ padding: "40px", maxWidth: "900px", margin: "0 auto", fontFamily: "monospace" }}>
-        <h2>User Dashboard</h2>
+{/* Status Board */}
+<div style={{
+  display: "flex",
+  justifyContent: "space-between",
+  gap: "20px",
+  marginBottom: "40px",
+  flexWrap: "wrap"
+}}>
+  <StatusCard label="Active Clients" value="0" color="#ecc1a7" icon={<FaUsers size={32} />} />
+  <StatusCard label="Approved" value="1" color="#6fcc91" icon={<FaCalendarCheck size={32} />} />
+  <StatusCard label="Pending" value="1" color="#aaaaaa" icon={<FaHourglassHalf size={32} />} />
+</div>
+
+        {/* Appointments List */}
+        <h3 style={{ marginBottom: "16px", fontSize: "1.6rem" }}>Appointments</h3>
+        <p style={{ fontSize: "1rem" }}>Click on an appointment to view details.</p>
+
 
         {appointments.map((item) => (
           <div key={item.id} style={{
@@ -66,7 +104,8 @@ const Dashboard = () => {
             {/* Header (clickable) */}
             <div
               onClick={() => handleToggle(item.id)}
-              style={{
+              style={{                
+                fontSize: "1rem",
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
@@ -89,11 +128,12 @@ const Dashboard = () => {
                     <p><strong>Date:</strong> {item.date}</p>
                   </div>
                   <div>
-                    <StatusBadge status={item.status} />
+                  
                   </div>
                 </div>
 
                 <div style={{
+                  fontSize: "1rem",
                   backgroundColor: "#f4f1e8",
                   borderRadius: "12px",
                   padding: "16px",
@@ -147,5 +187,23 @@ const btnStyle = (bg) => ({
   fontWeight: "bold",
   cursor: "pointer"
 });
+const StatusCard = ({ label, value, color, icon }) => (
+  <div style={{
+    backgroundColor: color,
+    padding: "24px 40px",
+    borderRadius: "32px",
+    flex: "1",
+    minWidth: "180px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    fontFamily: "monospace"
+  }}>
+    <div style={{ fontSize: "2rem", marginBottom: "10px" }}>{icon}</div>
+    <div style={{ fontSize: "1.5rem", fontWeight: "bold" }}>{value}</div>
+    <div>{label}</div>
+  </div>
+);
+
 
 export default Dashboard;

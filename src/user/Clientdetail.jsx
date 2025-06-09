@@ -63,7 +63,7 @@ const ClientDetail = () => {
       {/* Top Bar */}
       <div className="logo-box">
         <div className="logo-left">
-          <Link to="/userhomepage" className="login-logo-link">
+          <Link to="/user/dashboard" className="login-logo-link">
             <img src="/image/img_logo.svg" alt="Logo" className="login-logo" />
           </Link>
           <span className="navbar-title">Appointment Scheduler</span>
@@ -72,47 +72,79 @@ const ClientDetail = () => {
       </div>
 
       {/* Page Content */}
-      <div style={{ padding: "32px", display: "flex", flexDirection: "column", alignItems: "center", gap: "32px" }}>
-        
+      <div style={{
+          padding: "32px",
+          display: "flex",
+          justifyContent: "center"
+        }}>
+          <div style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "24px",
+            alignItems: "center"
+          }}>
+            
         {/* Calendar + Time */}
         <div style={{
-          backgroundColor: "#b0b3a8",
-          borderRadius: "20px",
-          padding: "24px",
-          transform: "scale(1.3)",         // ✅ scale up the calendar
-          transformOrigin: "top center",
-          textAlign: "center"
-        }}>
+      backgroundColor: "#b0b3a8",
+      borderRadius: "20px",
+      padding: "24px",
+      textAlign: "center"
+    }}>
           <Calendar
-            onChange={(date) => {
-              setSelectedDate(date);
-              setShowTimeInput(true);
+            onClickDay={(date) => {
+              if (selectedDate?.toDateString() === date.toDateString()) {
+                // User clicked the same date again – toggle the time input
+                setShowTimeInput(prev => !prev);
+              } else {
+                // New date – update and show time selector
+                setSelectedDate(date);
+                setShowTimeInput(true);
+              }
             }}
             value={selectedDate}
           />
 
           {showTimeInput && (
-            <div style={{ marginTop: "20px" }}>
-              <label>
-                <strong>Time:</strong>
-                <input
-                  type="time"
-                  ref={timeInputRef}
-                  value={time}
-                  onChange={(e) => setTime(e.target.value)}
-                  style={{
-                    marginLeft: "10px",
-                    fontFamily: "monospace",
-                    padding: "5px",
-                    borderRadius: "6px"
-                  }}
-                />
-              </label>
-            </div>
-          )}
-        </div>
+    <div style={{ marginTop: "10px", display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <label style={{
+        fontSize: "1.1rem",
+        marginBottom: "6px",
+        fontWeight: "bold"
+      }}>
+        Time:
+      </label>
+      <select
+  ref={timeInputRef}
+  value={time}
+  onChange={(e) => setTime(e.target.value)}
+  style={{
+    fontSize: "1rem",
+    padding: "10px 16px",
+    borderRadius: "12px",
+    border: "2px solid #666851",
+    backgroundColor: "#ECE7DC",
+    fontFamily: "monospace",
+    width: "240px"
+  }}
+>
+  <option value="">-- Select Time --</option>
+  <option value="08:00">08:00 AM</option>
+  <option value="09:00">09:00 AM</option>
+  <option value="10:00">10:00 AM</option>
+  <option value="11:00">11:00 AM</option>
+  <option value="13:00">01:00 PM</option>
+  <option value="14:00">02:00 PM</option>
+  <option value="15:00">03:00 PM</option>
+  <option value="16:00">04:00 PM</option>
+  <option value="17:00">05:00 PM</option>
+</select>
+      
+    </div>
+  )}
+</div>
 
-        <div style={{ height: "100px" }}></div>
+        {/* <div style={{ height: "120px" }}></div> */}
 
         {/* Client Info + Buttons */}
         <div style={{
@@ -153,6 +185,7 @@ const ClientDetail = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };

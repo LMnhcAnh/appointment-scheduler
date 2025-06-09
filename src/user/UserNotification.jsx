@@ -24,9 +24,9 @@ const UserNotification = () => {
     <div className="main-homepage">
       <div className="logo-box">
         <div className="logo-left">
-          <Link to="/" className="login-logo-link">
-                    <img src="/image/img_logo.svg" alt="Logo" className="login-logo" />
-                  </Link>
+          <Link to="/user/dashboard" className="login-logo-link">
+                        <img src="/image/img_logo.svg" alt="Logo" className="login-logo" />
+                      </Link>
           <span className="navbar-title">Appointment Scheduler</span>
         </div>
         <UserMenu />

@@ -19,8 +19,8 @@ const Login = () => {
         <input type="password" placeholder="Password" className="login-input" />
 
         <div className="login-buttons">
-          <Link to="/user/userhomepage" className="login-btn">Login</Link>
-          <Link to="/signup" className="login-btn">Sign up</Link>
+          <Link to="/user/dashboard" className="login-btn">Login</Link>
+          <Link to="/user/dashboard" className="login-btn">Sign up</Link>
         </div>
 
         <div className="divider">

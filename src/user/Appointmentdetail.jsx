@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import '../homepage.css';
 import UserMenu from "./UserMenu";
 import { useAppointment } from "./AppointmentContext";
+import { Link } from "react-router-dom";
 
 const AppointmentDetail = () => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const AppointmentDetail = () => {
     setShowToast(true);
     setTimeout(() => {
       setShowToast(false);
-      navigate("/user/userhomepage");
+      navigate("/user/dashboard"); // Redirect to dashboard after confirmation
     }, 2000);
   };
 
@@ -31,7 +32,9 @@ const AppointmentDetail = () => {
       {/* Header */}
       <div className="logo-box">
         <div className="logo-left">
-          <img src="/image/img_logo.svg" alt="Logo" />
+          <Link to="/user/dashboard" className="login-logo-link">
+              <img src="/image/img_logo.svg" alt="Logo" className="login-logo" />
+            </Link>
           <span className="navbar-title">Appointment Scheduler</span>
         </div>
         <UserMenu />
@@ -61,7 +64,7 @@ const AppointmentDetail = () => {
               type="time"
               value={time}
               onChange={(e) => setAppointmentData(prev => ({ ...prev, time: e.target.value }))}
-              style={{ marginLeft: "10px", fontFamily: "monospace", padding: "5px", borderRadius: "6px" }}
+              style={{ backgroundColor: "#ECE7DC", marginLeft: "4px", fontFamily: "monospace", padding: "5px", borderRadius: "10px" }}
             />
           </label>
 
@@ -71,7 +74,7 @@ const AppointmentDetail = () => {
             <strong>Notes:</strong><br />
             <textarea
               rows="4"
-              style={{ width: "100%", borderRadius: "8px", padding: "8px" }}
+              style={{ backgroundColor: "#ECE7DC", width: "100%", borderRadius: "8px", padding: "8px" }}
               value={note}
               onChange={(e) => setAppointmentData(prev => ({ ...prev, note: e.target.value }))}
             />

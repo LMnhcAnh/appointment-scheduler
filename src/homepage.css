@@ -262,9 +262,11 @@ body {
 
 /* Increase size of day numbers */
 .react-calendar__tile {
-  height: 60px;
-  font-size: 1.1rem; /* default is around 0.9rem */
-  padding: 12px 0;
+  padding: 6px !important;
+  height: 100px;
+  vertical-align: top;
+  font-size: 0.85rem;
+  line-height: 1.2;
 }
 
 /* Make header (e.g., June 2025) larger */
@@ -279,10 +281,20 @@ body {
   font-size: 1.1rem;
   font-weight: 500;
 }
+.react-calendar__month-view__days__day {
+  padding: 2px !important;
+  height: 70px !important; /* adjust if still too tall */
+  vertical-align: top;
+  font-weight: bold;
+}
 .react-calendar__tile--active {
   background: #666851;
   color: white;
   font-weight: bold;
+}
+
+.calendar-grid-stretch {
+  width: 100% !important;
 }
 
 .react-calendar__tile:hover {

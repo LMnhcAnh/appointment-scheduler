@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import UserMenu from "./UserMenu";
 import { useClientStatus } from "../context/ClientStatusContext";
 
@@ -13,7 +13,9 @@ const ClientList = () => {
     <div className="main-homepage">
       <div className="logo-box">
         <div className="logo-left">
-          <img src="/image/img_logo.svg" alt="Logo" className="login-logo" />
+          <Link to="/user/dashboard" className="login-logo-link">
+              <img src="/image/img_logo.svg" alt="Logo" className="login-logo" />
+            </Link>
           <span className="navbar-title">Appointment Scheduler</span>
         </div>
         <UserMenu />
