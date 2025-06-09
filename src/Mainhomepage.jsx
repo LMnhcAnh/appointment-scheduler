@@ -94,9 +94,11 @@ const MainHomepage = () => {
           </div>
         </section>
       </div>
-
+<div style={{ position: "relative",  height: "2px" }}>
+  <hr className="footer-line" />
+</div>
       <footer className="footer">
-        <hr />
+      
         <div className="footer-grid">
           <div className="footer-section">
             <h3>Contact</h3>

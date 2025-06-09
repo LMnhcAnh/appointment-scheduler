@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ClientMenu from "./ClientMenu";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const UserDetail = () => {
   const { id } = useParams(); // get user ID from route
@@ -36,7 +36,9 @@ const UserDetail = () => {
           onClick={() => navigate("/client/homepage")}
           style={{ cursor: "pointer" }}
         >
+          <Link to="/client/homepage" className="logo-link">
           <img src="/image/img_logo.svg" alt="Logo" />
+          </Link>
           <span className="navbar-title">Appointment Scheduler</span>
         </div>
         <ClientMenu />
@@ -58,6 +60,30 @@ const UserDetail = () => {
           <p>Loading user details...</p>
         )}
       </div>
+      <div style={{ textAlign: "center", marginTop: "32px" }}>
+      <button
+  onClick={() => navigate("/client/users")}
+  style={{
+    backgroundColor: "#aeb1a5",
+    color: "#333",
+    border: "none",
+    borderRadius: "24px",
+    width: "fit-content",
+    padding: "10px 18px",
+    fontWeight: "bold",
+    fontFamily: "monospace",
+    cursor: "pointer",
+    marginTop: "32px",
+    transition: "filter 0.2s",
+    filter: "brightness(1)"
+  }}
+  onMouseEnter={(e) => e.currentTarget.style.filter = "brightness(1.05)"}
+  onMouseLeave={(e) => e.currentTarget.style.filter = "brightness(1)"}
+>
+  ← Back to User List
+</button>
+
+    </div>
     </div>
   );
 };

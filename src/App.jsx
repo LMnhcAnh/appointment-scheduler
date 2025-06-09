@@ -7,6 +7,7 @@ import Signup from "./Signup";
 
 // User Pages
 import Userhomepage from "./user/Userhomepage";
+import Useraboutus from "./user/UserAboutUs";
 import UserCalendar from "./user/Usercalender";
 import ClientList from "./user/Clientlist";
 import ClientDetail from "./user/Clientdetail"; 
@@ -46,6 +47,7 @@ const App = () => {
         {/* user */}
 
         <Route path="/user/userhomepage" element={<Userhomepage />} />
+        <Route path="/user/useraboutus" element={<Useraboutus />} />
         <Route path="/user/usercalendar" element={<UserCalendar />} />
         <Route path="/user/clients" element={<ClientList />} />
         <Route path="/user/client/:id" element={<ClientDetail />} />

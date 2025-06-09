@@ -28,11 +28,11 @@ const Login = () => {
         </div>
 
         <a href="https://www.facebook.com" target="_blank" rel="noreferrer" className="social-btn">
-          <FaFacebookF className="social-icon" /> Login with Facebook
+          <FaFacebookF style={{ fontSize: "30px" }} className="social-icon" /> Login with Facebook
         </a>
 
         <a href="https://accounts.google.com/Login" target="_blank" rel="noreferrer" className="social-btn">
-          <MdEmail className="social-icon" /> Login with Mail
+          <MdEmail style={{ fontSize: "30px" }} className="social-icon" /> Login with Mail
         </a>
       </div>
     </div>

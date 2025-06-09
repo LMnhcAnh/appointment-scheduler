@@ -31,7 +31,7 @@ const UserHomepage = () => {
             <img className="hero-logo" src="/image/img_logo.svg" alt="Main Logo" />
             <h1>#1 online scheduling website</h1>
             <p>Book your schedule for free. Fast booking service in less than 30 seconds</p>
-            <Link to="/signup" className="start-btn no-underline">Start now</Link>
+            <Link to="/user/clients" className="start-btn no-underline">Start now</Link>
           </div>
 
           <div className="hero-right calendar-fixed-width">
@@ -92,21 +92,20 @@ const UserHomepage = () => {
           </div>
 
           <div className="start-btn-container">
-            <Link to="/signup" className="start-btn no-underline">Start now</Link>
+            <Link to="/user/clients" className="start-btn no-underline">Start now</Link>
           </div>
         </section>
       </div>
         <footer className="footer">
   <div className="footer-content">
-    <div className="footer-left">
-      <img src="/image/img_logo.svg" alt="Logo" className="footer-logo" />
-      <span className="footer-title">Appointment Scheduler</span>
-    </div>
+    
   </div>
 </footer>
-
+  <div style={{ position: "relative", width: "300vw", height: "2px" }}>
+  <hr className="footer-line" />
+</div>
   <footer className="footer">
-        <hr />
+        
         <div className="footer-grid">
           <div className="footer-section">
             <h3>Contact</h3>
@@ -134,7 +133,7 @@ const UserHomepage = () => {
             </ul>
           </div>
           <div className="footer-section">
-            <h3><Link to="/about" className="footer-link">About us</Link></h3>
+            <h3><Link to="/user/useraboutus" className="footer-link">About us</Link></h3>
           </div>
           <div className="footer-section">
             <h3>Term of Use</h3>

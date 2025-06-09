@@ -2,8 +2,8 @@ import React from "react";
 import "../style.css";
 import { Link } from "react-router-dom";
 import { FaFacebookF } from "react-icons/fa";
-
-
+import UserMenu from "./UserMenu";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 
 const ProfileCard = ({ role, name, id, likes, quote, image }) => (
@@ -24,7 +24,7 @@ return (
   <>
     <div className="navbar">
       <div className="navbar-left">
-        <Link to="/userhomepage" className="login-logo-link">
+        <Link to="/user/userhomepage" className="login-logo-link">
         <img src="/image/img_logo.svg" alt="Logo" className="logo" />
         </Link> 
         <span className="navbar-title">Appointment Scheduler</span>
@@ -43,9 +43,10 @@ return (
         </div>
       </div>
     </div>
- 
+ <div style={{ position: "relative", width: "300vw", height: "2px" }}>
+  <hr className="footer-line" />
+</div>
 <footer className="footer">
-  <hr />
   <div className="footer-grid">
     <div className="footer-section">
       <h3>Contact</h3>
@@ -80,8 +81,7 @@ return (
     </div>
     <div className="footer-section">
       <h3>Account</h3>
-      <Link to="/signup" className="footer-link">Sign up</Link>
-      <Link to="/login" className="footer-link">Login</Link>
+      <Link to="/user/userprofile" className="footer-link">Profile</Link>
     </div>
   </div>
 </footer>
@@ -93,7 +93,7 @@ const Homepage = () => (
   <div className="main-homepage">
     <h1>Welcome to the Appointment Scheduler Homepage</h1>
     <nav>
-      <Link to="/">Home</Link> | <Link to="/about">Homepage</Link>
+      <Link to="/user/userhomepage">Home</Link> | <Link to="/about">Homepage</Link>
     </nav>
   </div>
 );

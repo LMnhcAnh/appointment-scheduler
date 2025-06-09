@@ -114,7 +114,6 @@ const AdminAddAccount = () => {
             }}
           >
             <option value="Client">Client</option>
-            <option value="Manager">Manager</option>
             <option value="Admin">Admin</option>
           </select>
 
