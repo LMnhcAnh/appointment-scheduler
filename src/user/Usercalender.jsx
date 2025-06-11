@@ -60,7 +60,7 @@ const UserCalendar = () => {
       {/* Header */}
       <div className="logo-box">
         <div className="logo-left">
-          <Link to="/user/usercalendar">
+          <Link to="/user/dashboard" className="login-logo-link">
           <img src="/image/img_logo.svg" alt="Logo" />
           </Link>
           <span className="navbar-title">Appointment Scheduler</span>

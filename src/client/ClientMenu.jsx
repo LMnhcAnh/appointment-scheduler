@@ -10,7 +10,6 @@ const menuItems = [
   { icon: FaChartBar, label: "Dashboard", route: "/client/dashboard" },
   { icon: FaBell, label: "Notification", route: "/client/notifications" },
   { icon: FaList, label: "List of user", route: "/client/users" },
-  { icon: FaHistory, label: "History", route: "/client/history" },
   { icon: FaUser, label: "Profile", route: "/client/profile" },
   { icon: FaCog, label: "Setting", route: "/client/settings" },
 ];

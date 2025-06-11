@@ -6,37 +6,18 @@ import "../homepage.css";
 import { Link } from "react-router-dom";
 
 const clients = [
-  {
-    id: 1,
-    avatar: "/image/img_gbao_1.png",
-    name: "Phan Bảo",
-    role: "Marketing",
-    status: "Pending",
-    time: "10:00 AM",
-    date: "June 10, 2025",
-    description: "Discuss campaign strategies."
-  },
-  {
-    id: 2,
-    avatar: "/image/img_gbao_1.png",
-    name: "Nguyễn Văn A",
-    role: "Sales",
-    status: "Confirm",
-    time: "11:30 AM",
-    date: "June 12, 2025",
-    description: "Review quarterly sales."
-  },
-  {
-    id: 3,
-    avatar: "/image/img_gbao_1.png",
-    name: "Lê Thị B",
-    role: "Developer",
-    status: "Denied",
-    time: "2:00 PM",
-    date: "June 15, 2025",
-    description: "Discuss feature timeline."
-  }
+  { id: 1, name: "Alice", date: "June 10, 2025", time: "08:00 AM", status: "Pending", avatar: "/image/img_gbao_2.png", role: "Marketing" },
+  { id: 2, name: "Bob", date: "June 10, 2025", time: "09:00 AM", status: "Confirm", avatar: "/image/img_gbao_2.png", role: "Sales" },
+  { id: 3, name: "Charlie", date: "June 10, 2025", time: "10:00 AM", status: "Denied", avatar: "/image/img_gbao_2.png", role: "Engineering" },
+  { id: 4, name: "Diana", date: "June 11, 2025", time: "08:00 AM", status: "Confirm", avatar: "/image/img_gbao_2.png", role: "Manager" },
+  { id: 5, name: "Ethan", date: "June 11, 2025", time: "01:00 PM", status: "Complete", avatar: "/image/img_gbao_2.png", role: "Design" },
+  { id: 6, name: "Fiona", date: "June 12, 2025", time: "03:00 PM", status: "Denied", avatar: "/image/img_gbao_2.png", role: "Support" },
+  { id: 7, name: "George", date: "June 13, 2025", time: "11:00 AM", status: "Confirm", avatar: "/image/img_gbao_2.png", role: "QA" },
+  { id: 8, name: "Hannah", date: "June 14, 2025", time: "04:00 PM", status: "Pending", avatar: "/image/img_gbao_2.png", role: "Intern" },
+  { id: 9, name: "Ian", date: "June 15, 2025", time: "02:00 PM", status: "Complete", avatar: "/image/img_gbao_2.png", role: "Lead" }
 ];
+
+
 
 const UserDashboard = () => {
   const [selectedClient, setSelectedClient] = useState(null);
@@ -60,7 +41,7 @@ const UserDashboard = () => {
       {/* Header */}
       <div className="logo-box" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "20px" }}>
         <div className="logo-left">
-          <Link to="/user/usercalendar">
+          <Link to="/user/dashboard">
             <img src="/image/img_logo.svg" alt="Logo" width={40} />
           </Link>
           <span className="navbar-title">Appointment Scheduler</span>
@@ -70,90 +51,107 @@ const UserDashboard = () => {
 
       {/* Content */}
       
-        {/* Calendar on top */}
         <div style={{ padding: "40px", maxWidth: "1200px", margin: "0 auto" }}>
-        <h2>Calendar</h2>
+  <h2>Calendar</h2>
 
-        <button
-          className="confirm-btn"
-          style={{ marginLeft: "12px" }}
-          onClick={() => setViewMode(viewMode === "month" ? "week" : "month")}
-        >
-          Switch to {viewMode === "month" ? "Week View" : "Month View"}
-        </button>
-        {/* Month View */}
-        {viewMode === "month" && (
-          <div style={{
-            marginTop: "30px",
-            padding: "20px",
-            background: "#ece7dc",
-            borderRadius: "10px"
-          }}>
-          <Calendar
-            value={selectedDate}
-            onChange={setSelectedDate}
-            className="calendar-grid-stretch"
-            tileContent={({ date, view }) => {
-  const hasEvent = clients.some(c => new Date(c.date).toDateString() === date.toDateString());
-  return view === "month" && hasEvent ? (
-    <div style={{ textAlign: "center", color: "green", fontSize: "1.2rem" }}>•</div>
-  ) : null;
-}}
-          />
-        </div>
-        )}
-        {/* Week View */}
-        {viewMode === "week" && (
-          <div style={{ marginTop: "30px", padding: "20px", background: "#ece7dc", borderRadius: "10px" }}>
-            <h3>Week View</h3>
-            <table style={{ width: "100%", borderCollapse: "collapse", tableLayout: "fixed" }}>
-              <thead>
-                <tr>
-                  {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d, i) => (
-                    <th key={i} style={{ padding: "10px", borderBottom: "1px solid #ccc" }}>{d}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  {Array.from({ length: 7 }).map((_, dayOffset) => {
-                    const date = new Date(selectedDate);
-                    date.setDate(selectedDate.getDate() - selectedDate.getDay() + dayOffset);
-                    const dailyEvents = getAppointmentsForDate(date);
+  <button
+    className="confirm-btn"
+    style={{ marginLeft: "12px" }}
+    onClick={() => setViewMode(viewMode === "month" ? "week" : "month")}
+  >
+    Switch to {viewMode === "month" ? "Week View" : "Month View"}
+  </button>
+
+  {/* Month View */}
+  {viewMode === "month" && (
+    <div style={{
+      marginTop: "30px",
+      padding: "20px",
+      background: "#ece7dc",
+      borderRadius: "10px"
+    }}>
+      <Calendar
+        value={selectedDate}
+        onChange={setSelectedDate}
+        className="calendar-grid-stretch"
+        tileContent={({ date, view }) => {
+          const hasEvent = clients.some(
+            c => new Date(c.date).toDateString() === date.toDateString()
+          );
+          return view === "month" && hasEvent ? (
+            <div style={{ textAlign: "center", color: "green", fontSize: "1.2rem" }}>•</div>
+          ) : null;
+        }}
+      />
+    </div>
+  )}
+
+  {/* Week View */}
+  {viewMode === "week" && (
+    <div style={{ marginTop: "30px", padding: "20px", background: "#ece7dc", borderRadius: "10px" }}>
+      <h3>Week View</h3>
+      <table style={{ width: "100%", borderCollapse: "collapse", tableLayout: "fixed" }}>
+        <thead>
+          <tr>
+            {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d, i) => (
+              <th key={i} style={{ padding: "10px", borderBottom: "1px solid #ccc" }}>{d}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            {Array.from({ length: 7 }).map((_, dayOffset) => {
+              const date = new Date(selectedDate);
+              date.setDate(selectedDate.getDate() - selectedDate.getDay() + dayOffset);
+              const dailyEvents = clients
+                .filter(client => new Date(client.date).toDateString() === date.toDateString())
+                .sort((a, b) => new Date(`1970/01/01 ${a.time}`) - new Date(`1970/01/01 ${b.time}`));
+
+              return (
+                <td key={dayOffset} style={{
+                  verticalAlign: "top",
+                  padding: "10px",
+                  height: "120px",
+                  border: "1px solid #ddd",
+                  boxSizing: "border-box"
+                }}>
+                  <div style={{ fontWeight: "bold", marginBottom: "6px" }}>
+                    {date.getDate()} / {date.getMonth() + 1}
+                  </div>
+                  {dailyEvents.map((event, i) => {
+                    const bgColor = {
+                      Pending: "#aaa",
+                      Confirm: "#5cb85c",
+                      Denied: "#d9534f",
+                      Complete: "#0275d8"
+                    }[event.status] || "#999";
+
                     return (
-                      <td key={dayOffset} style={{ verticalAlign: "top", padding: "10px", heigght: "120px", border: "1px solid #ddd", boxSizing: "border-box"  }}>
-                        <div style={{ fontWeight: "bold", marginBottom: "6px" }}>
-                          {date.getDate()} / {date.getMonth() + 1}
-                        </div>
-                        {dailyEvents.map((event, i) => (
-                          <div
-                            key={i}
-                            onClick={() => {
-                              setActiveDayEvents([event]);
-                              setShowModal(true);
-                            }}
-                            style={{
-                              whiteSpace: "normal", 
-                              backgroundColor: "#34a853",
-                              color: "#fff",
-                              borderRadius: "6px",
-                              marginBottom: "6px",
-                              padding: "4px 8px",
-                              fontSize: "0.85rem",
-                              cursor: "pointer"
-                            }}
-                          >
-                            {event.client.name} - {event.time}
-                          </div>
-                        ))}
-                      </td>
+                      <div
+                        key={i}
+                        style={{
+                          backgroundColor: bgColor,
+                          color: "white",
+                          borderRadius: "6px",
+                          marginBottom: "6px",
+                          padding: "4px 8px",
+                          fontSize: "0.85rem"
+                        }}
+                      >
+                        {event.name} – {event.time}
+                      </div>
                     );
                   })}
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        )}
+
+                </td>
+              );
+            })}
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  )}
+
 <div style={{ padding: "40px" }}>
         <h2 style={{ fontFamily: "monospace", marginBottom: "20px" }}>Dashboard</h2>
         {/* List of clients */}
@@ -259,7 +257,8 @@ const StatusBadge = ({ status }) => {
   const color = {
     Pending: "#ccc",
     Confirm: "#5cb85c",
-    Denied: "#d9534f"
+    Denied: "#d9534f",
+    Complete: "#0275d8"
   }[status] || "#999";
 
   return (

@@ -22,7 +22,7 @@ const UserHistory = () => {
     <div className="main-homepage">
       <div className="logo-box">
         <div className="logo-left">
-          <Link to="/user/usercalendar" className="login-logo-link">
+          <Link to="/user/dashboard" className="login-logo-link">
               <img src="/image/img_logo.svg" alt="Logo" className="login-logo" />
             </Link>
           <span className="navbar-title">Appointment Scheduler</span>

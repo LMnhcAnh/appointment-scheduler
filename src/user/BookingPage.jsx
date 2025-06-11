@@ -5,6 +5,7 @@ import "../homepage.css";
 import UserMenu from "./UserMenu";
 import { useAppointment } from "./AppointmentContext";
 import { FaUser, FaClock } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const mockClients = [
   { id: 1, name: "Trần Gia Bảo", role: "Marketing", description: "Discuss brand strategy" },
@@ -108,7 +109,9 @@ const BookingPage = () => {
     <div className="main-homepage">
       <div className="logo-box">
         <div className="logo-left">
+          <Link to="/user/dashboard" className="login-logo-link">
           <img src="/image/img_logo.svg" alt="Logo" />
+          </Link>
           <span className="navbar-title">Appointment Scheduler</span>
         </div>
         <UserMenu />
