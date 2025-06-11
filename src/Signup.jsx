@@ -19,7 +19,7 @@ const Signup = () => {
         <input type="password" placeholder="Password*" className="login-input" />
         <input type="confirmpassword" placeholder="Confirm Password*" className="login-input" />
 
-        <Link to="/user/usercalender" className="login-btn" style={{ marginTop: "0.5px", width: "400px" }}>Create Account</Link>
+        <Link to="/user/dashboard" className="login-btn" style={{ marginTop: "0.5px", width: "400px" }}>Create Account</Link>
 
         <Link to="/login" className="login-btn" style={{ marginTop: "10px", textAlign: "center" , width: "150px"}}>Back</Link>
       </div>
