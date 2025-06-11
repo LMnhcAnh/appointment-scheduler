@@ -123,16 +123,31 @@ const ClientDashboard = () => {
           <h3>🕒 Pending Approvals</h3>
           <div style={{ flex: 1, overflowY: "auto", background: "#b0b3a860", borderRadius: "12px", padding: "12px" }}>
             {pendingAppointments.map((user) => (
-              <div
-                key={user.id}
-                style={{ backgroundColor: "#b0b3a8", borderRadius: "16px", padding: "16px", marginBottom: "16px", minHeight: "140px" }}
-              >
-                <div style={{ display: "flex", gap: "14px" }}>
-                  <img src={user.avatar} alt="avatar" width="40" height="40" style={{ borderRadius: "50%" }} />
-                  <span>{user.name}</span>
-                </div>
-              </div>
-            ))}
+  <div
+    key={user.id}
+    style={{ backgroundColor: "#b0b3a8", borderRadius: "16px", padding: "16px", marginBottom: "16px", minHeight: "140px", cursor: "pointer" }}
+    onClick={() => toggleExpand(user.id)}
+  >
+    <div style={{ display: "flex", gap: "14px" }}>
+      <img src={user.avatar} alt="avatar" width="40" height="40" style={{ borderRadius: "50%" }} />
+      <span>{user.name}</span>
+    </div>
+
+    {expandedId === user.id && (
+      <div style={{ marginTop: "10px" }}>
+        <p><strong>Email:</strong> {user.email}</p>
+        <p><strong>Date:</strong> {user.date}</p>
+        <p><strong>Time:</strong> {user.time}</p>
+        <p><strong>Note:</strong> {user.notes}</p>
+        <div style={{ display: "flex", gap: "10px", marginTop: "8px" }}>
+          <button className="confirm-btn" style={{ backgroundColor: "#7a9cc6" }}>✅ Approve</button>
+          <button className="confirm-btn" style={{ backgroundColor: "#e06d6d" }}>❌ Deny</button>
+        </div>
+      </div>
+    )}
+  </div>
+))}
+
           </div>
         </div>
 
