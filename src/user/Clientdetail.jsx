@@ -9,7 +9,9 @@ import { useAppointment } from "./AppointmentContext";
 const ClientDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { setAppointmentData } = useAppointment();
+  // const { setAppointmentData } = useAppointment();
+  const { addAppointment } = useAppointment();
+
 
   const [client, setClient] = useState(null);
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -48,11 +50,11 @@ const ClientDetail = () => {
       return;
     }
 
-    setAppointmentData({
-      selectedDate,
+    addAppointment({
+      date: selectedDate,
       client,
       time,
-      note: "" // keeping it blank in case other pages expect it
+      note: ""  // or your note value
     });
 
     navigate("/user/appointment-detail");
@@ -63,7 +65,7 @@ const ClientDetail = () => {
       {/* Top Bar */}
       <div className="logo-box">
         <div className="logo-left">
-          <Link to="/user/dashboard" className="login-logo-link">
+          <Link to="/user/usercalendar" className="login-logo-link">
             <img src="/image/img_logo.svg" alt="Logo" className="login-logo" />
           </Link>
           <span className="navbar-title">Appointment Scheduler</span>
@@ -85,25 +87,25 @@ const ClientDetail = () => {
           }}>
             
         {/* Calendar + Time */}
-        <div style={{
-      backgroundColor: "#b0b3a8",
-      borderRadius: "20px",
-      padding: "24px",
-      textAlign: "center"
-    }}>
-          <Calendar
-            onClickDay={(date) => {
-              if (selectedDate?.toDateString() === date.toDateString()) {
-                // User clicked the same date again – toggle the time input
-                setShowTimeInput(prev => !prev);
-              } else {
-                // New date – update and show time selector
-                setSelectedDate(date);
-                setShowTimeInput(true);
-              }
-            }}
-            value={selectedDate}
-          />
+        <div
+  style={{
+    backgroundColor: "#b0b3a8",
+    borderRadius: "20px",
+    padding: "24px",
+    width: "100%",
+    maxWidth: "900px",
+    boxSizing: "border-box",
+    textAlign: "center"
+  }}
+>
+  <Calendar
+    onChange={(date) => {
+      setSelectedDate(date);
+      setShowTimeInput(true);
+    }}
+    value={selectedDate}
+    className="calendar-grid-stretch"
+  />
 
           {showTimeInput && (
     <div style={{ marginTop: "10px", display: "flex", flexDirection: "column", alignItems: "center" }}>

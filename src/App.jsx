@@ -14,6 +14,7 @@ import UserProfile from "./user/UserProfile";
 import UserHistory from "./user/UserHistory";
 import UserNotification from "./user/UserNotification";
 import UserDashboard from "./user/UserDashboard";
+import BookingPage from "./user/BookingPage";
 
 // Client Pages
 import ClientHomepage from "./client/ClientHomepage";
@@ -52,6 +53,7 @@ const App = () => {
         <Route path="/user/history" element={<UserHistory />} />
         <Route path="/user/notifications" element={<UserNotification />} />
         <Route path="/user/dashboard" element={<UserDashboard />} />
+        <Route path="/user/booking" element={<BookingPage />} />
 
 
         {/* client */}

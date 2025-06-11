@@ -7,10 +7,9 @@ import {
 import "./UserMenu.css";
 
 const menuItems = [
-  { icon: FaCalendarAlt, label: "Calendar", route: "/user/usercalendar" },
   { icon: FaChartBar, label: "Dashboard", route: "/user/dashboard" },
   { icon: FaBell, label: "Notification", route: "/user/notifications" },
-  { icon: FaList, label: "List of client", route: "/user/clients" },
+  { icon: FaList, label: "Book an appointment", route: "/user/booking" },
   { icon: FaHistory, label: "History", route: "/user/history" },
   { icon: FaUser, label: "Profile", route: "/user/userprofile" },
   { icon: FaCog, label: "Setting", route: "/user/settings" },

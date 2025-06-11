@@ -1,209 +1,289 @@
 import React, { useState } from "react";
+import Calendar from "react-calendar";
+import 'react-calendar/dist/Calendar.css';
 import UserMenu from "./UserMenu";
 import "../homepage.css";
 import { Link } from "react-router-dom";
-import { FaUsers, FaCalendarCheck, FaHourglassHalf } from "react-icons/fa";
 
-
-// Mock appointments
-const appointments = [
+const clients = [
   {
     id: 1,
     avatar: "/image/img_gbao_1.png",
-    name: "Bảo Nghiện – Học cách nuôi cá",
+    name: "Phan Bảo",
+    role: "Marketing",
     status: "Pending",
     time: "10:00 AM",
     date: "June 10, 2025",
-    description: "Discussing aquarium setup and maintenance."
+    description: "Discuss campaign strategies."
   },
   {
     id: 2,
-    avatar: "/image/img_gbao_2.png",
-    name: "Name - Doctor",
-    status: "Denied"
+    avatar: "/image/img_gbao_1.png",
+    name: "Nguyễn Văn A",
+    role: "Sales",
+    status: "Confirm",
+    time: "11:30 AM",
+    date: "June 12, 2025",
+    description: "Review quarterly sales."
   },
   {
     id: 3,
-    avatar: "/image/img_gbao_3.png",
-    name: "Name - Teacher",
-    status: "Confirm"
-  },
-  {
-    id: 4,
-    avatar: "/image/DucAnh.png",
-    name: "Tôm - Ăn Hại",
-    status: "Denied"
-  },
-  {
-    id: 5,
-    avatar: "/image/DucAnh.png",
-    name: "Tôm - Ăn Hại",
-    status: "Denied"
-  },
-  {
-    id: 6,
-    avatar: "/image/DucAnh.png",
-    name: "Tôm - Ăn Hại",
-    status: "Denied"
-  },
-  {
-    id: 7,
-    avatar: "/image/DucAnh.png",
-    name: "Tôm - Ăn Hại",
-    status: "Denied"
+    avatar: "/image/img_gbao_1.png",
+    name: "Lê Thị B",
+    role: "Developer",
+    status: "Denied",
+    time: "2:00 PM",
+    date: "June 15, 2025",
+    description: "Discuss feature timeline."
   }
 ];
 
-const Dashboard = () => {
-  const [expandedId, setExpandedId] = useState(null);
+const UserDashboard = () => {
+  const [selectedClient, setSelectedClient] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [viewMode, setViewMode] = useState("month");
+  const [activeDayEvents, setActiveDayEvents] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
-  const handleToggle = (id) => {
-    setExpandedId(prev => prev === id ? null : id);
+  // Helper function to get appointments for a specific date
+  const getAppointmentsForDate = (date) => {
+    return clients
+      .filter(client => new Date(client.date).toDateString() === date.toDateString())
+      .map(client => ({
+        client,
+        time: client.time
+      }));
   };
 
   return (
     <div className="main-homepage">
-      <div className="logo-box">
+      {/* Header */}
+      <div className="logo-box" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "20px" }}>
         <div className="logo-left">
-          <Link to="/user/dashboard" className="login-logo-link">
-              <img src="/image/img_logo.svg" alt="Logo" className="login-logo" />
-            </Link>
+          <Link to="/user/usercalendar">
+            <img src="/image/img_logo.svg" alt="Logo" width={40} />
+          </Link>
           <span className="navbar-title">Appointment Scheduler</span>
         </div>
         <UserMenu />
       </div>
-<h2 style={{ textAlign: "left", marginBottom: "24px", marginLeft:"100px", size: "100px" }}>Dashboard</h2>
-      <div style={{ padding: "20px", maxWidth: "900px", margin: "0 auto", fontFamily: "monospace"}}>
-        
 
-{/* Status Board */}
-<div style={{
-  display: "flex",
-  justifyContent: "space-between",
-  gap: "20px",
-  marginBottom: "40px",
-  flexWrap: "wrap"
-}}>
-  <StatusCard label="Active Clients" value="0" color="#ecc1a7" icon={<FaUsers size={32} />} />
-  <StatusCard label="Approved" value="1" color="#6fcc91" icon={<FaCalendarCheck size={32} />} />
-  <StatusCard label="Pending" value="1" color="#aaaaaa" icon={<FaHourglassHalf size={32} />} />
-</div>
+      {/* Content */}
+      
+        {/* Calendar on top */}
+        <div style={{ padding: "40px", maxWidth: "1200px", margin: "0 auto" }}>
+        <h2>Calendar</h2>
 
-        {/* Appointments List */}
-        <h3 style={{ marginBottom: "16px", fontSize: "1.6rem" }}>Appointments</h3>
-        <p style={{ fontSize: "1rem" }}>Click on an appointment to view details.</p>
-
-
-        {appointments.map((item) => (
-          <div key={item.id} style={{
-            backgroundColor: "#b0b3a8",
-            borderRadius: "18px",
-            marginBottom: "16px",
-            padding: "16px"
+        <button
+          className="confirm-btn"
+          style={{ marginLeft: "12px" }}
+          onClick={() => setViewMode(viewMode === "month" ? "week" : "month")}
+        >
+          Switch to {viewMode === "month" ? "Week View" : "Month View"}
+        </button>
+        {/* Month View */}
+        {viewMode === "month" && (
+          <div style={{
+            marginTop: "30px",
+            padding: "20px",
+            background: "#ece7dc",
+            borderRadius: "10px"
           }}>
-            {/* Header (clickable) */}
+          <Calendar
+            value={selectedDate}
+            onChange={setSelectedDate}
+            className="calendar-grid-stretch"
+            tileContent={({ date, view }) => {
+  const hasEvent = clients.some(c => new Date(c.date).toDateString() === date.toDateString());
+  return view === "month" && hasEvent ? (
+    <div style={{ textAlign: "center", color: "green", fontSize: "1.2rem" }}>•</div>
+  ) : null;
+}}
+          />
+        </div>
+        )}
+        {/* Week View */}
+        {viewMode === "week" && (
+          <div style={{ marginTop: "30px", padding: "20px", background: "#ece7dc", borderRadius: "10px" }}>
+            <h3>Week View</h3>
+            <table style={{ width: "100%", borderCollapse: "collapse", tableLayout: "fixed" }}>
+              <thead>
+                <tr>
+                  {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d, i) => (
+                    <th key={i} style={{ padding: "10px", borderBottom: "1px solid #ccc" }}>{d}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  {Array.from({ length: 7 }).map((_, dayOffset) => {
+                    const date = new Date(selectedDate);
+                    date.setDate(selectedDate.getDate() - selectedDate.getDay() + dayOffset);
+                    const dailyEvents = getAppointmentsForDate(date);
+                    return (
+                      <td key={dayOffset} style={{ verticalAlign: "top", padding: "10px", heigght: "120px", border: "1px solid #ddd", boxSizing: "border-box"  }}>
+                        <div style={{ fontWeight: "bold", marginBottom: "6px" }}>
+                          {date.getDate()} / {date.getMonth() + 1}
+                        </div>
+                        {dailyEvents.map((event, i) => (
+                          <div
+                            key={i}
+                            onClick={() => {
+                              setActiveDayEvents([event]);
+                              setShowModal(true);
+                            }}
+                            style={{
+                              whiteSpace: "normal", 
+                              backgroundColor: "#34a853",
+                              color: "#fff",
+                              borderRadius: "6px",
+                              marginBottom: "6px",
+                              padding: "4px 8px",
+                              fontSize: "0.85rem",
+                              cursor: "pointer"
+                            }}
+                          >
+                            {event.client.name} - {event.time}
+                          </div>
+                        ))}
+                      </td>
+                    );
+                  })}
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        )}
+<div style={{ padding: "40px" }}>
+        <h2 style={{ fontFamily: "monospace", marginBottom: "20px" }}>Dashboard</h2>
+        {/* List of clients */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+          {clients.map((client) => (
             <div
-              onClick={() => handleToggle(item.id)}
-              style={{                
-                fontSize: "1rem",
+              key={client.id}
+              onClick={() => setSelectedClient(client)}
+              style={{
+                backgroundColor: "#b0b3a8",
+                borderRadius: "32px",
+                padding: "20px 32px",
                 display: "flex",
-                justifyContent: "space-between",
                 alignItems: "center",
-                cursor: "pointer"
+                gap: "20px",
+                fontFamily: "monospace",
+                cursor: "pointer",
+                justifyContent: "space-between"
               }}
             >
-              <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
-                <img src={item.avatar} alt="avatar" width="40" height="40" style={{ borderRadius: "50%" }} />
-                <span>{item.name}</span>
+              <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+                <img src={client.avatar} alt="avatar" width="64" height="64" style={{ borderRadius: "50%" }} />
+                <span style={{ fontSize: "1.2rem" }}>
+                  <strong>{client.name}</strong> – {client.role}
+                </span>
               </div>
-              <StatusBadge status={item.status} />
+              <StatusBadge status={client.status} />
             </div>
+          ))}
+        </div>
+      </div>
 
-            {/* Expanded view */}
-            {expandedId === item.id && (
-              <div style={{ marginTop: "16px" }}>
-                <div style={{ display: "flex", justifyContent: "space-between" }}>
-                  <div>
-                    <p><strong>Time:</strong> {item.time}</p>
-                    <p><strong>Date:</strong> {item.date}</p>
-                  </div>
-                  <div>
-                  
-                  </div>
-                </div>
+      {/* Modal for detail */}
+      {selectedClient && (
+        <ClientDetailModal
+          client={selectedClient}
+          onClose={() => setSelectedClient(null)}
+        />
+      )}
+      {/* Closing main-homepage div */}
+    </div>
+      </div>
+  );
+};
 
-                <div style={{
-                  fontSize: "1rem",
-                  backgroundColor: "#f4f1e8",
-                  borderRadius: "12px",
-                  padding: "16px",
-                  margin: "12px 0"
-                }}>
-                  <strong>Description:</strong><br />
-                  {item.description}
-                </div>
+// Modal
+const ClientDetailModal = ({ client, onClose }) => {
+  const handleClickBackground = (e) => {
+    if (e.target.id === "modal-bg") onClose();
+  };
 
-                <div style={{ display: "flex", gap: "12px" }}>
-                  <button style={btnStyle("#fdbd88")}>Edit</button>
-                  <button style={btnStyle("#f87b6b")}>Delete</button>
-                </div>
-              </div>
-            )}
-          </div>
-        ))}
+  return (
+    <div
+      id="modal-bg"
+      onClick={handleClickBackground}
+      style={{
+        position: "fixed", top: 0, left: 0,
+        width: "100%", height: "100%",
+        backgroundColor: "rgba(0,0,0,0.5)",
+        display: "flex", justifyContent: "center", alignItems: "center",
+        zIndex: 999
+      }}
+    >
+      <div
+        onClick={onClose}
+        style={{
+          backgroundColor: "#b0b3a8",
+          borderRadius: "48px",
+          padding: "40px",
+          width: "700px",
+          maxWidth: "90%",
+          fontFamily: "monospace",
+          cursor: "pointer"
+        }}
+      >
+        <div style={{ position: "absolute", top: "20px", right: "30px" }}>
+          <StatusBadge status={client.status} />
+        </div>
+        <h2>{client.name}</h2>
+        <p><strong>Date:</strong> {client.date || "—"}</p>
+        <p><strong>Time:</strong> {client.time || "—"}</p>
+        <div style={{
+          backgroundColor: "#e1e1e1",
+          borderRadius: "32px",
+          padding: "24px",
+          marginTop: "20px",
+          minHeight: "180px"
+        }}>
+          <strong>Description:</strong><br />
+          {client.description || "—"}
+        </div>
+        <div style={{ display: "flex", justifyContent: "space-between", marginTop: "30px" }}>
+          <button style={btnStyle("#fdbd88")}>Edit</button>
+          <button style={btnStyle("#f87b6b")}>Delete</button>
+        </div>
       </div>
     </div>
   );
 };
 
+// Badge
 const StatusBadge = ({ status }) => {
   const color = {
     Pending: "#ccc",
     Confirm: "#5cb85c",
     Denied: "#d9534f"
-  }[status];
+  }[status] || "#999";
 
   return (
     <span style={{
       backgroundColor: color,
       color: "white",
-      padding: "6px 12px",
-      borderRadius: "12px",
-      fontSize: "0.9rem",
-      minWidth: "70px",
-      textAlign: "center"
+      padding: "4px 12px",
+      borderRadius: "10px",
+      fontSize: "0.9rem"
     }}>
       {status}
     </span>
   );
 };
 
+// Button
 const btnStyle = (bg) => ({
   backgroundColor: bg,
   color: "#333",
   border: "none",
-  borderRadius: "8px",
-  padding: "8px 16px",
+  borderRadius: "6px",
+  padding: "6px 12px",
   fontWeight: "bold",
   cursor: "pointer"
 });
-const StatusCard = ({ label, value, color, icon }) => (
-  <div style={{
-    backgroundColor: color,
-    padding: "24px 40px",
-    borderRadius: "32px",
-    flex: "1",
-    minWidth: "180px",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    fontFamily: "monospace"
-  }}>
-    <div style={{ fontSize: "2rem", marginBottom: "10px" }}>{icon}</div>
-    <div style={{ fontSize: "1.5rem", fontWeight: "bold" }}>{value}</div>
-    <div>{label}</div>
-  </div>
-);
 
-
-export default Dashboard;
+export default UserDashboard;

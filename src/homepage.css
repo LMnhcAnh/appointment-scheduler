@@ -157,12 +157,17 @@ body {
 .react-calendar {
   border: none;
   font-family: var(--font-family);
-  width: 100%;
+  width: 100% !important;
+  max-width: 100% !important;
   height: 500px;
   background: #ECE7DC;
   border-radius: 8px;
   padding: 10px;
   font-size: 0.9rem;
+  min-height: 500px;
+  height: auto !important;
+  transition: height 0.2s ease;
+  box-sizing: border-box;
 }
 
 .calendar-fixed-width {
@@ -262,11 +267,15 @@ body {
 
 /* Increase size of day numbers */
 .react-calendar__tile {
-  padding: 6px !important;
+  padding: 18px 0 !important;
   height: 100px;
   vertical-align: top;
-  font-size: 0.85rem;
+  font-size: 1.1rem;
   line-height: 1.2;
+}
+.full-width-calendar {
+  width: 100% !important;
+  max-width: 100% !important;
 }
 
 /* Make header (e.g., June 2025) larger */
@@ -288,8 +297,8 @@ body {
   font-weight: bold;
 }
 .react-calendar__tile--active {
-  background: #666851;
-  color: white;
+  background: #868a54;
+  color: white; 
   font-weight: bold;
 }
 
@@ -339,4 +348,15 @@ body {
 
 .confirm-btn:hover {
   background-color: #4a4c3d;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
 }
