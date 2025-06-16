@@ -26,7 +26,7 @@ const ClientDashboard = () => {
     },
     {
       id: 2,
-      avatar: "/image/img_avatar_placeholder.png",
+      avatar: "/image/img_gbao_3.png",
       name: "Trần Minh Châu",
       email: "chau.tran@example.com",
       date: "June 12, 2025",
@@ -35,7 +35,7 @@ const ClientDashboard = () => {
     },
     {
       id: 3,
-      avatar: "/image/img_avatar_placeholder.png",
+      avatar: "/image/img_gbao_3.png",
       name: "Lê Quốc Hưng",
       email: "hung.le@example.com",
       date: "June 12, 2025",

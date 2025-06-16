@@ -29,7 +29,7 @@ const ClientProfile = () => {
       <div className="logo-box">
         <div
           className="logo-left"
-          onClick={() => navigate("/client/hompage")}
+          onClick={() => navigate("/client/homepage")}
           style={{ cursor: "pointer" }}
         >
           <img src="/image/img_logo.svg" alt="Logo" />
